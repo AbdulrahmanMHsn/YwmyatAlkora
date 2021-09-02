@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="gizahost.alkora.presentation.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_socialFragment"
+            app:destination="@id/socialFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_leaguesFragment"
+            app:destination="@id/leaguesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="gizahost.alkora.presentation.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="gizahost.alkora.presentation.news.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="gizahost.alkora.presentation.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="gizahost.alkora.presentation.about.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="gizahost.alkora.presentation.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/socialFragment"
+        android:name="gizahost.alkora.presentation.social.SocialFragment"
+        android:label="fragment_social"
+        tools:layout="@layout/fragment_social" />
+    <fragment
+        android:id="@+id/leaguesFragment"
+        android:name="gizahost.alkora.presentation.leagues.leaguesFragment"
+        android:label="leaguesFragment" />
+</navigation>

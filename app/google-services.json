@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "787583580238",
+    "project_id": "yawmiat-alkora",
+    "storage_bucket": "yawmiat-alkora.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787583580238:android:2dfc97d68d748846aaab1f",
+        "android_client_info": {
+          "package_name": "gizahost.alkora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787583580238-k4q4dg1k5co9fgu19h986jhvc3t18i5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gizahost.alkora",
+            "certificate_hash": "9d19d39a4c7b36ec3c0690a6ebf9077cdb0f5c6a"
+          }
+        },
+        {
+          "client_id": "787583580238-49dvmr2qhsthnirbs1dtnpoi40uorbd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8l5Q2S_2zNXlxJnF2UkZHXTTHsSUMOEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787583580238-49dvmr2qhsthnirbs1dtnpoi40uorbd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
