@@ -29,7 +29,7 @@ class leaguesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_leagues, container, false)
         return binding.root
@@ -42,6 +42,29 @@ class leaguesFragment : Fragment() {
         initRecyclerView()
         onBackPressed()
 
+        binding.leagueToolbar.imgBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
+
+        val leaguesList = mutableListOf<League>()
+
+        leaguesList.add(League(538,R.drawable.egyptian_premier_league,"الدورى المصرى"))
+        leaguesList.add(League(4496,R.drawable.africa_cup_of_nation_official_logo,"كأس الأمم الأفريقية"))
+        leaguesList.add(League(4328,R.drawable.premier_league_logo,"الدورى الأنجليزى"))
+        leaguesList.add(League(4335,R.drawable.logo_laliga,"الدورى الاسبانى"))
+        leaguesList.add(League(4504,R.drawable.ligue1,"الدورى الفرنسى"))
+        leaguesList.add(League(4332,R.drawable.serie,"الدورى الأيطالى"))
+        leaguesList.add(League(4331,R.drawable.bundesliga_logo,"الدورى الألمانى"))
+        leaguesList.add(League(4480,R.drawable.champions_league,"دورى أبطال أوروبا"))
+        leaguesList.add(League(4502,R.drawable.uefa_europa_league_logo,"الدورى الأوروبى"))
+        leaguesList.add(League(4502,R.drawable.egypt_cup,"كأس مصر"))
+        leaguesList.add(League(4720,R.drawable.caf_champions_league,"دورى ابطال افريقيا"))
+
+
+
+        adapter.setList(leaguesList)
+
+
         val networkConnection = NetworkConnection(requireContext())
         networkConnection.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -49,11 +72,11 @@ class leaguesFragment : Fragment() {
 
 
                     for(item in it!!.response){
-                        Log.i("My TAG", "onViewCreated: "+item.league.name)
+                        Log.i("My TAG", "onViewCreated: "+item.league)
                         list.add(item.league)
                     }
 
-                    adapter.setList(list)
+//                    adapter.setList(list)
 
 
 
@@ -71,9 +94,9 @@ class leaguesFragment : Fragment() {
     private fun initRecyclerView() {
         binding.leagueRcVw.setHasFixedSize(true)
         binding.leagueRcVw.layoutManager = LinearLayoutManager(requireContext())
-        adapter = LeagueListAdapter({ selectedItem: League ->
+        adapter = LeagueListAdapter { selectedItem: League ->
             listItemClicked(selectedItem)
-        })
+        }
         binding.leagueRcVw.adapter = adapter
     }
 

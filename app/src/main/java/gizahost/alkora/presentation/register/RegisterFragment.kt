@@ -13,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import gizahost.alkora.R
-import gizahost.alkora.databinding.FragmentAboutBinding
 import gizahost.alkora.databinding.FragmentRegisterBinding
 import gizahost.alkora.utils.Utils
 
@@ -27,7 +26,7 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
         return binding.root
@@ -43,17 +42,20 @@ class RegisterFragment : Fragment() {
         databaseReference.keepSynced(true)
 
 
+        binding.registerToolbar.imgBack.setOnClickListener {
+            view.findNavController().popBackStack()
+        }
 
 
         binding.btnSend.setOnClickListener {
 
             if (binding.etName.length() == 0) {
-                binding.etName.setError("الاسم مطلوب")
+                binding.etName.error = "الاسم مطلوب"
                 return@setOnClickListener
             }
 
             if (binding.etPhone.length() == 0) {
-                binding.etPhone.setError("الرقم مطلوب")
+                binding.etPhone.error = "الرقم مطلوب"
                 return@setOnClickListener
             }
 
