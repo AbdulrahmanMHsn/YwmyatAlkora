@@ -9,6 +9,7 @@ object RetrofitClient {
 
     val  BASE_URL_NEWS:String = "https://newsapi.org/"
     val  BASE_URL_FOOTBALL:String = "https://v3.football.api-sports.io/"
+    val  BASE_URL_FOOTBALL_LEAGUE:String = "https://www.thesportsdb.com/"
 
     private fun getInstance(url:String): Retrofit {
 

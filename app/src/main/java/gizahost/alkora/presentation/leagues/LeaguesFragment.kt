@@ -1,18 +1,18 @@
 package gizahost.alkora.presentation.leagues
 
-import android.app.Dialog
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.mlkit.common.model.DownloadConditions
@@ -20,50 +20,32 @@ import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.TranslatorOptions
 import gizahost.alkora.R
-import gizahost.alkora.databinding.FragmentDetailsLeagueBinding
 import gizahost.alkora.databinding.FragmentLeaguesBinding
-import gizahost.alkora.pojo.details_league.Details
 import gizahost.alkora.pojo.league.League
-import gizahost.alkora.utils.Dialogs
 import gizahost.alkora.utils.NetworkConnection
 
 
-class DetailsLeagueFragment : Fragment() {
+class LeaguesFragment : Fragment() {
 
-    private lateinit var adapter: TableLeagueListAdapter
-    private lateinit var binding: FragmentDetailsLeagueBinding
+    private lateinit var adapter: LeagueListAdapter
+    private lateinit var binding: FragmentLeaguesBinding
     private lateinit var viewModel: LeaguesViewModel
-    private var list = mutableListOf<Details>()
-    private var idLeague:String? = null
-    private lateinit var mProgress: Dialog
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val bundle = arguments?.let {
-            idLeague = it.getInt("IdLeague").toString()
-        }
-        Log.i("DDDDDD", "onCreate: $idLeague")
-
-
-    }
+    private var list = mutableListOf<League>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_details_league, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_leagues, container, false)
         return binding.root
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(LeaguesViewModel::class.java)
-        mProgress = Dialogs.createProgressBarDialog(context, "")
-
-
         initRecyclerView()
         onBackPressed()
 
@@ -89,46 +71,74 @@ class DetailsLeagueFragment : Fragment() {
                 Log.i("TAGTAGTAG", "onViewCreated: $exception")
 
             }
-        mProgress.show()
+
+
+        val leaguesList = mutableListOf<League>()
+
+        leaguesList.add(League(4829, R.drawable.egyptian_premier_league, "الدورى المصرى"))
+        leaguesList.add(League(4496, R.drawable.africa_cup_of_nation_official_logo, "كأس الأمم الأفريقية"))
+        leaguesList.add(League(4328, R.drawable.premier_league_logo, "الدورى الأنجليزى"))
+        leaguesList.add(League(4335, R.drawable.logo_laliga, "الدورى الاسبانى"))
+        leaguesList.add(League(4504, R.drawable.ligue1, "الدورى الفرنسى"))
+        leaguesList.add(League(4332, R.drawable.serie, "الدورى الأيطالى"))
+        leaguesList.add(League(4331, R.drawable.bundesliga_logo, "الدورى الألمانى"))
+        leaguesList.add(League(4480, R.drawable.champions_league, "دورى أبطال أوروبا"))
+        leaguesList.add(League(4502, R.drawable.uefa_europa_league_logo, "الدورى الأوروبى"))
+//        leaguesList.add(League(4502,R.drawable.egypt_cup,"كأس مصر"))
+        leaguesList.add(League(4720, R.drawable.caf_champions_league, "دورى ابطال افريقيا"))
+
+
+
+        adapter.setList(leaguesList)
+
+
         val networkConnection = NetworkConnection(requireContext())
         networkConnection.observe(viewLifecycleOwner, Observer {
             if (it) {
-                viewModel.table(idLeague.toString()).observe(viewLifecycleOwner, Observer {
+                viewModel.leagues.observe(viewLifecycleOwner, Observer {
 
 
-                    for (item in it!!.table) {
-//                        englishArabicTranslator.translate(item.strTeam)
-//                            .addOnSuccessListener { translatedText ->
-//                                list.add(Details(item.idStanding,item.idLeague,item.intDraw,item.intGoalsAgainst,item.intGoalsFor,item.intLoss,item.intPlayed,item.intPoints,item.intRank,item.intWin,translatedText,item.strTeamBadge))
+                    for (item in it!!.response) {
+                        englishArabicTranslator.translate(item.league.name)
+                            .addOnSuccessListener { translatedText ->
+//                                Log.i("TAGTAGTAG", "onViewCreated0: $translatedText")
+//                                list.add(League(item.league.id,item.league.logo,translatedText))
+//                                Log.i("TAGTAGTAG", "onViewCreated0: $translatedText")
 //                                adapter.setList(list)
-//                            }
-//                            .addOnFailureListener { exception ->
-//                                Log.i("TAGTAGTAG", "onViewCreated1: $exception")
-//
-//                            }
-                      list.add(item)
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.i("TAGTAGTAG", "onViewCreated1: $exception")
+
+                            }
                         Log.i("MyTAG", "onViewCreated3: ")
                     }
                     Log.i("MyTAG", "onViewCreated3: ${list.size}")
 
-                    adapter.setList(list)
-                    mProgress.dismiss()
+
                 })
             } else {
                 val snack =
                     Snackbar.make(requireView(), "لايوجد الاتصال بالانترنت", Snackbar.LENGTH_LONG)
                 snack.show()
-                mProgress.dismiss()
             }
         })
+
     }
 
 
     private fun initRecyclerView() {
         binding.leagueRcVw.setHasFixedSize(true)
         binding.leagueRcVw.layoutManager = LinearLayoutManager(requireContext())
-        adapter = TableLeagueListAdapter()
+        adapter = LeagueListAdapter { selectedItem: League ->
+            listItemClicked(selectedItem)
+        }
         binding.leagueRcVw.adapter = adapter
+    }
+
+    private fun listItemClicked(selectedItem: League) {
+        val bundle = Bundle()
+        bundle.putInt("IdLeague", selectedItem.id)
+        findNavController().navigate(R.id.detailsLeagueFragment,bundle)
     }
 
     private fun onBackPressed() {

@@ -65,6 +65,14 @@
         tools:layout="@layout/fragment_social" />
     <fragment
         android:id="@+id/leaguesFragment"
-        android:name="gizahost.alkora.presentation.leagues.leaguesFragment"
-        android:label="leaguesFragment" />
+        android:name="gizahost.alkora.presentation.leagues.LeaguesFragment"
+        android:label="leaguesFragment" >
+        <action
+            android:id="@+id/action_leaguesFragment_to_detailsLeagueFragment"
+            app:destination="@id/detailsLeagueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsLeagueFragment"
+        android:name="gizahost.alkora.presentation.leagues.DetailsLeagueFragment"
+        android:label="DetailsLeagueFragment" />
 </navigation>

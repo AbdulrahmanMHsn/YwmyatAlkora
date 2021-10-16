@@ -14,4 +14,11 @@
     <string name="email">البريد الالكترونى</string>
     <string name="comment">تعليق</string>
     <string name="submit">ارسال</string>
+    <string name="arrangement">ترتيب الجدول</string>
+    <string name="points">نقط</string>
+    <string name="goals">اهداف</string>
+    <string name="h">ه</string>
+    <string name="t">ت</string>
+    <string name="f">ف</string>
+    <string name="l">ل</string>
 </resources>

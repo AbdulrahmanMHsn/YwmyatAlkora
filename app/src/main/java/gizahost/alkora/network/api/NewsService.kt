@@ -1,6 +1,7 @@
 package gizahost.alkora.network.api
 
 import gizahost.alkora.pojo.News
+import gizahost.alkora.pojo.details_league.Table
 import gizahost.alkora.pojo.league.LeagueList
 import retrofit2.Call
 import retrofit2.http.GET
@@ -23,4 +24,14 @@ interface NewsService {
         @Query("current") current:String = "true",
         @Query("season") season:Int = 2021
     ): Call<LeagueList>
+
+
+    @GET("api/v1/json/1/lookuptable.php")
+    fun getTable(
+        @Query("l") idLeague:String,
+        @Query("s") seasonLeague:String = "2020-2021"
+    ): Call<Table>
+
+
+
 }

@@ -1,5 +1,6 @@
 package gizahost.alkora.presentation.leagues
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -41,6 +42,7 @@ class LeagueListAdapter(private val clickListener:(League)->Unit) : RecyclerView
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<League>){
         leagueList = list
         notifyDataSetChanged()

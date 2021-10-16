@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".presentation.leagues.leaguesFragment">
+        tools:context=".presentation.leagues.LeaguesFragment">
 
 
         <include layout="@layout/snippet_top_leaguetoolbar"
@@ -20,4 +20,6 @@
             tools:listitem="@layout/layout_item_league" />
 
     </LinearLayout>
+
+
 </layout>
